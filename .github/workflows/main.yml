@@ -4,8 +4,6 @@ on:
     push:
         branches:
         - main
-        paths:
-        - 'frontend-challenge-base/**'
 jobs:
     build-and-push:
         name: Build and push Docker image to ECR
@@ -34,4 +32,3 @@ jobs:
           run: |
                 docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG frontend-challenge-base/
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-                
