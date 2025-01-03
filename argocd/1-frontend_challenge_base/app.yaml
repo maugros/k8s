@@ -24,7 +24,7 @@ spec:
         value: '80'
       - name: image.tag
         value: latest
-    path: argocd/helm/inlaze
+    path: argocd/2-helm/inlaze
     repoURL: git@github.com:maugros/k8s.git
     targetRevision: main
   syncPolicy:
