@@ -21,7 +21,7 @@ spec:
       - name: image.repository
         value: 975050325050.dkr.ecr.us-east-1.amazonaws.com/frontend-challenge-base
       - name: service.port
-        value: '80'
+        value: '3000'
       - name: image.tag
         value: latest
     path: argocd/2-helm/inlaze
