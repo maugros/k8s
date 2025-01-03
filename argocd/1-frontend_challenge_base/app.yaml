@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: inlaze=975050325050.dkr.ecr.us-east-1.amazonaws.com/frontend-challenge-base
+    argocd-image-updater.argoproj.io/inlaze.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/inlaze.allow-tags: regexp:^latest.*$
+    argocd-image-updater.argoproj.io/write-back-method: git
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: inlaze
+  namespace: argocd
+spec:
+  destination:
+    namespace: test
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      parameters:
+      - name: image.repository
+        value: 975050325050.dkr.ecr.us-east-1.amazonaws.com/frontend-challenge-base
+      - name: service.port
+        value: '80'
+      - name: image.tag
+        value: latest
+    path: argocd/helm/inlaze
+    repoURL: git@github.com:maugros/k8s.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      allowEmpty: false
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - Validate=true
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
